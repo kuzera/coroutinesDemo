@@ -1,0 +1,93 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+//    dependencies {
+//        classpath group: 'pl.allegro.tech.build', name: 'axion-gradle-plugin', version: '1.3.3'
+//        classpath group: 'pl.allegro.tech.phoenix', name: 'phoenix-provisioning-plugin', version: '1.3.0'
+//    }
+}
+
+//plugins {
+//    id 'groovy'
+//    id 'application'
+//    id 'maven-publish'
+//    id 'pl.allegro.tech.build.axion-release' version '1.9.3'
+//    id 'org.jetbrains.kotlin.jvm' version '1.3.31'
+//    id 'org.jetbrains.kotlin.plugin.spring' version '1.3.31'
+//    id 'org.jetbrains.kotlin.plugin.allopen' version '1.3.31'
+//}
+
+plugins {
+    id 'org.springframework.boot' version "2.1.5.RELEASE"
+    id 'io.spring.dependency-management' version "1.0.7.RELEASE"
+//    kotlin("jvm") version "1.3.30"
+//    kotlin("plugin.spring") version "1.3.30"
+//    kotlin("plugin.allopen") version "1.3.30"
+
+    id 'org.jetbrains.kotlin.jvm' version '1.3.31'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.3.31'
+    id 'org.jetbrains.kotlin.plugin.allopen' version '1.3.31'
+}
+
+group = "com.coroutines"
+version = "0.0.1-SNAPSHOT"
+
+apply plugin: 'application'
+//java.sourceCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+
+dependencies {
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: '1.3.31'
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: '1.3.31'
+    compile group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.2.1'
+    compile group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-reactor', version: '1.2.1'
+    compile group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-reactive', version: '1.2.1'
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-script-runtime', version: '1.3.31'
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.5.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.1.5.RELEASE'
+
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter', version: '5.4.2'
+    testCompile group: 'org.jetbrains.kotlin', name: 'kotlin-test', version: '1.3.31'
+    testCompile group: 'io.mockk', name: 'mockk', version: '1.9.3'
+    testCompile group: 'io.projectreactor', name: 'reactor-test'
+}
+
+mainClassName = 'com.coroutines.demo.Examples'
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        exceptionFormat = 'full'
+    }
+}
+
+wrapper {
+    gradleVersion = '5.4.1'
+}
+
+configurations {
+    compile.exclude group: 'commons-logging', module: 'commons-logging'
+    compile.exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    compile.exclude group: 'org.slf4j', module: 'slf4j-jcl'
+    compile.exclude group: 'log4j', module: 'log4j'
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
